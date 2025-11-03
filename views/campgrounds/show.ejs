@@ -16,7 +16,7 @@
 
 <div class="row">
   <div class="col-6 offset-3">
-    <div class="card">
+    <div class="card mb-3">
       <img src="<%= campground.image %>" class="card-img-top" alt="..." />
       <div class="card-body">
         <h5 class="card-title"><%= campground.title %></h5>
@@ -48,5 +48,35 @@
         </div>
       </div>
     </div>
+    <h2>Leave a Review</h2>
+    <form
+      action="/campgrounds/<%=campground._id %>/reviews"
+      method="POST"
+      class="mb-3 needs-validation"
+      novalidate
+    >
+      <div class="mb-3">
+        <label class="form-label" for="reviewrating">Rating</label>
+        <input
+          class="form-range"
+          type="range"
+          name="review[rating]"
+          id="reviewrating"
+          min="1"
+          max="5"
+        />
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="reviewbody">Review</label>
+        <textarea
+          class="form-control"
+          name="review[body]"
+          id="reviewbody"
+          required
+        ></textarea>
+        <div class="valid-feedback">Looks good!</div>
+      </div>
+      <button class="btn btn-success">Submit</button>
+    </form>
   </div>
 </div>
