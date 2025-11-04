@@ -6,7 +6,7 @@ const mongoose = require("mongoose");
 const methodOverride = require("method-override");
 const Joi = require("joi");
 const Campground = require("./models/campground");
-const Review = require("./models/campground");
+const Review = require("./models/review");
 const catchAsync = require("./utils/catchAsync");
 const ExpressError = require("./utils/ExpressError");
 const { campgroundSchema, reviewSchema } = require("./schemas");
@@ -75,7 +75,10 @@ app.post(
 app.get(
   "/campgrounds/:id",
   catchAsync(async (req, res) => {
-    const campground = await Campground.findById(req.params.id);
+    const campground = await Campground.findById(req.params.id).populate(
+      "reviews"
+    );
+    console.log(campground);
     res.render("campgrounds/show", { campground });
   })
 );
