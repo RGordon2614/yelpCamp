@@ -15,7 +15,9 @@
   <body class="d-flex flex-column vh-100">
     <%- partial('../partials/navbar.ejs') %>
 
-    <main class="container mt-3"><%- body %></main>
+    <main class="container mt-3">
+      <%- include('../partials/flash.ejs') %> <%- body %>
+    </main>
 
     <%- partial('../partials/footer.ejs') %>
     <script
@@ -24,27 +26,6 @@
       crossorigin="anonymous"
     ></script>
 
-    <script>
-      (() => {
-        "use strict";
-
-        const forms = document.querySelectorAll(".needs-validation");
-
-        Array.from(forms).forEach((form) => {
-          form.addEventListener(
-            "submit",
-            (event) => {
-              if (!form.checkValidity()) {
-                event.preventDefault();
-                event.stopPropagation();
-              }
-
-              form.classList.add("was-validated");
-            },
-            false
-          );
-        });
-      })();
-    </script>
+    <script src="/javascripts/validateForms.js"></script>
   </body>
 </html>
