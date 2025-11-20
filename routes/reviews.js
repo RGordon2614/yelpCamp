@@ -7,25 +7,16 @@ const ExpressError = require("../utils/ExpressError");
 
 const Campground = require("../models/campground");
 const Review = require("../models/review");
-const { reviewSchema } = require("../schemas");
-
-const validateReview = (req, res, next) => {
-  const result = reviewSchema.validate(req.body);
-  if (result.error) {
-    const msg = result.error.details.map((el) => el.message).join(",");
-    throw new ExpressError(msg, 400);
-  } else {
-    next();
-  }
-};
+const { validateReview, isLoggedIn } = require("../middleware");
 
 router.post(
   "/",
   validateReview,
+  isLoggedIn,
   catchAsync(async (req, res) => {
     const campground = await Campground.findById(req.params.id);
-    console.log(campground);
     const review = new Review(req.body.review);
+    review.author = req.user._id;
     campground.reviews.push(review);
     await review.save();
     await campground.save();
