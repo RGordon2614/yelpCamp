@@ -1,3 +1,7 @@
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+}
+
 const express = require("express");
 const app = express();
 
@@ -34,9 +38,7 @@ const sessionConfig = {
   saveUninitialized: true,
   cookie: {
     httpOnly: true,
-    // Tells the cookie to expire in 1 week
     expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
-    // Max age of cookie is also 1 week
     maxAge: 1000 * 60 * 60 * 24 * 7,
   },
 };
