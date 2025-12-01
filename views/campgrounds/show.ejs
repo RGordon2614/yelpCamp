@@ -12,24 +12,24 @@
           <% }) %>
         </div>
         <% if(campground.images.length > 1){ %>
-        <button
+        <a
           class="carousel-control-prev"
-          type="button"
-          data-bs-target="#campgroundCarousel"
-          data-bs-slide="prev"
+          href="#campgroundCarousel"
+          role="button"
+          data-slide="prev"
         >
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button
+          <span class="sr-only">Previous</span>
+        </a>
+        <a
           class="carousel-control-next"
-          type="button"
-          data-bs-target="#campgroundCarousel"
-          data-bs-slide="next"
+          href="#campgroundCarousel"
+          role="button"
+          data-slide="next"
         >
           <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-        </button>
+          <span class="sr-only">Next</span>
+        </a>
         <% } %>
       </div>
 
