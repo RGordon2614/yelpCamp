@@ -15,9 +15,9 @@ router
   .route("/")
   .get(catchAsync(campgrounds.index))
   .post(
-    validateCampground,
     isLoggedIn,
     upload.array("image"),
+    validateCampground,
     catchAsync(campgrounds.createCampground)
   );
 
@@ -27,10 +27,10 @@ router
   .route("/:id")
   .get(catchAsync(campgrounds.showCampground))
   .put(
-    validateCampground,
     isLoggedIn,
     isAuthor,
     upload.array("image"),
+    validateCampground,
     catchAsync(campgrounds.editCampground)
   )
   .delete(isLoggedIn, isAuthor, catchAsync(campgrounds.deleteCampground));
