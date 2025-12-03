@@ -18,12 +18,15 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user");
 const helmet = require("helmet");
+const MongoDBStore = require("connect-mongo")(session);
 
 const campgroundRoutes = require("./routes/campgrounds");
 const reviewRoutes = require("./routes/reviews");
 const userRoutes = require("./routes/users");
 
-mongoose.connect("mongodb://localhost:27017/yelp-camp");
+const dbUrl = process.env.DB_URL;
+// mongoose.connect("mongodb://localhost:27017/yelp-camp"); // Development database
+mongoose.connect(dbUrl); // Deployment database
 
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
@@ -74,7 +77,18 @@ app.use(
   })
 );
 
+const store = new MongoDBStore({
+  url: dbUrl,
+  secret: "thisshouldbeabettersecret!",
+  touchAfter: 24 * 60 * 60,
+});
+
+store.on("error", function (err) {
+  console.log("SESSION STORE ERROR!", err);
+});
+
 const sessionConfig = {
+  store,
   name: "session",
   secret: "thisshouldbeabettersecret",
   resave: false,
