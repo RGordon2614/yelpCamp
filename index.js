@@ -4,7 +4,9 @@ if (process.env.NODE_ENV !== "production") {
 
 const express = require("express");
 const app = express();
+app.set("query parser", "extended");
 
+const sanitizeV5 = require("./utils/mongoSanitizeV5.js");
 const ejsMate = require("ejs-mate");
 const path = require("path");
 const mongoose = require("mongoose");
@@ -31,6 +33,7 @@ db.once("open", () => {
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, "public")));
+app.use(sanitizeV5({ replaceWith: "_" }));
 
 const sessionConfig = {
   secret: "thisshouldbeabettersecret",
