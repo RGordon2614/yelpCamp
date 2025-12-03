@@ -79,7 +79,7 @@ app.use(
 
 const store = new MongoDBStore({
   url: dbUrl,
-  secret: "thisshouldbeabettersecret!",
+  secret: "a2very6complex86secret!4345",
   touchAfter: 24 * 60 * 60,
 });
 
@@ -90,7 +90,7 @@ store.on("error", function (err) {
 const sessionConfig = {
   store,
   name: "session",
-  secret: "thisshouldbeabettersecret",
+  secret: "a2very6complex86secret!4345",
   resave: false,
   saveUninitialized: true,
   cookie: {
